@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html ng-app="business" ng-controller="productController as productCtrl" id="productCtrl">
+<head lang="en">
+    <meta charset="UTF-8">
+
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/stylecorb.css" />
+    <script src="js/angular.min.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.11.2.min.js"></script>
+    <script src="http://code.angularjs.org/1.2.5/angular-animate.js"></script>
+    <script src="js/magic.js"></script>
+    <script src="js/array.json"></script>
+    <script src="js/featured.json"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/jQuery.js"></script>
+
+
+
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/stylecorb.css" />
+    <title>RSS</title>
+</head>
+<body>
+
+<div class="container">
+    <div id="otherThings">
+
+    <div id="LOGOBLOCK">
+        <a href="http://www.rollingsharpeningstone.com/index.php"><img id="logo" src="imagescorb/topleft.jpg" width="226" height="134" alt="Rolling Sharpening Stone" /></a>
+    </div><!-- end LOGOBLOCK -->
+
+    <div id="TAGLINE">
+        <img src="imagescorb/topmid.jpg" width="494" height="134" alt="mobile knife sharpening, chef&#146;s tools &#38; cutlery sales" />
+    </div><!-- end TAGLINE -->
+
+    <div id="UTILITY">
+        <img src="imagescorb/topright.jpg" width="226" height="134" alt="Rolling Sharpening Stone offers franchise opportunities all over the United States" />
+    </div><!-- end UTILITY -->
+
+    <div id="LEFT_SQUARE">
+        <img src="imagescorb/leftsquare1.jpg"
+             alt="When our franchisees pull up to a customer&#146;s kitchen, it&#146;s like when the ice cream truck rolls into a neighborhood full of kids. Darryl Hoffman, founder" width="226" height="179" border="0" />	</div><!-- end LEFT_SQUARE -->
+
+    <div id="CENTER_TOP_PANEL">
+        <img src="imagescorb/midsquare1.jpg"
+             alt="" width="494" height="179" border="0" />	</div><!-- end CENTER_TOP_PANEL -->
+
+    <div id="RIGHT_SQUARE">
+        <img src="imagescorb/rightsquare1.jpg"
+             alt="Rolling Sharpening Stone franchisee" width="226" height="179" border="0" />	</div><!-- end RIGHT_SQUARE -->
+    </div>
+
+    <div id="LEFT_NAV_PANEL2" ><!-- ~~~~~ LEFT PANELS ~~~~~ -->
+<h3>Filters</h3>
+        <button style="position:relative; top:10px;" type="button" class="btn btn-info" ng-click="productCtrl.category = 'All'; productCtrl.searchTextAll=''">Clear Filters</button>
+
+
+
+        <select style="position:relative; top:40px;" ng-model="productCtrl.category" ng-options="o as o for o in productCtrl.groups">
+
+
+        </select>
+
+        <div class="search"  style="position:relative; top:60px;">
+            <h5>Search for Items within Categories</h5>
+            <input class="form-control" style="height:20px;width:150px;" type="text" ng-model="productCtrl.searchText"  >
+
+
+        </div>
+
+        <br>
+        <div style="position:relative;top:70px;left:10px;"><h6>or</h6></div>
+        <div style="position:relative; top:90px;left:5px;"><h5>Search All Products</h5>
+        <input class="form-control" style="position:relative; top:5px;left:0px;height:20px;width:150px;" type="text" ng-model="productCtrl.searchTextAll" ng-click="productCtrl.category = 'All'; productCtrl.searchText = ''" >
+        </div>
+    </div><!-- end LEFT-NAV-PANEL -->
+
+    <div id="CENTER_WHITE"><!-- ~~~~~ CENTRAL PANELS ~~~~~ -->
+
+        <div id="primary">
+            <h1 style="position:relative;left:10px;">Rolling Sharpening Stone</h1><div class="text"><h4 style="position:relative;left:11px;">Category: {{productCtrl.category}}</h4>
+            <p>&#160;</p>
+
+
+                <div ng-init="productCtrl.checkCookie()"></div>
+            <!--featured products section-->
+
+            <div  ng-controller="ModalDemoCtrl" ng-show="productCtrl.category == 'Featured'" ng-repeat="featuredProduct in productCtrl.featured">
+                <div class="box"  >
+
+                    <strong ng-click="open(featuredProduct)" style="position:absolute;left:50px;">{{featuredProduct.id}}</strong>
+
+                    <div  class="boxInner"  >
+
+                        <img ng-click="open(featuredProduct)" ng-src="{{featuredProduct.pic}}" style="position:relative;width:60%;left:20%;" />
+
+                    </div>
+                    <button ng-show="productCtrl.isInBasket(featuredProduct.name)" type="button"  ng-click="productCtrl.selectProduct(featuredProduct.name)" style="position:relative;top:130px;left:130px;;">Add to Basket</button>
+                    <button ng-hide="productCtrl.isInBasket(featuredProduct.name)" type="button" ng-click="productCtrl.selectProduct(featuredProduct.name)" style="position:relative;top:130px;left:100px;;">Remove from Basket</button>
+                </div>
+
+
+            </div>
+            <div ng-controller="ModalDemoCtrl">
+                <script type="text/ng-template" id="myModalContent.html">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="itemId">{{items.id}}</h3>
+                    </div>
+                    <div class="modal-body">
+
+                        <h5>Group: {{items.Group}}</h5>
+                        <h5>Sub-Group: {{items.SubGroup}}</h5>
+                        <h5>Sold as: {{items.UM}}</h5>
+
+                        <img ng-src="{{items.pic}}" style="position:relative;left:50%;"/>
+                        <h5>Mfg Part Number: "{{items.MfgPN}}"</h5>
+                        <h5>Part Number: "{{items.PartNumber}}"</h5>
+                        </div>
+
+                    <div class="modal-footer">
+                        <button id="addToCart" class="btn btn-primary" ng-click="ok()">Ok</button>
+
+                    </div>
+                </script>
+
+
+            </div>
+            <!--end featured products section-->
+<!--Main products section-->
+                   <div  ng-controller="ModalDemoCtrl" class="repeat-animation" ng-show="productCtrl.category !== 'Featured'" ng-repeat="product in productCtrl.products | filter:productCtrl.category | filter:productCtrl.searchText | filter:productCtrl.searchTextAll"  >
+
+                       <div class="box"  >
+
+                           <strong ng-click="open(product)" style="position:absolute;left:50px;">{{product.id}}</strong>
+
+                           <div  class="boxInner"  >
+
+                               <img ng-click="open(product)" ng-src="{{product.pic}}" style="position:relative;width:60%;left:20%;" />
+
+                           </div>
+                           <button ng-show="productCtrl.isInBasket(product.name)" type="button"  ng-click="productCtrl.selectProduct(product.name)" style="position:relative;top:130px;left:130px;;">Add to Basket</button>
+                           <button ng-hide="productCtrl.isInBasket(product.name)" type="button" ng-click="productCtrl.selectProduct(product.name)" style="position:relative;top:130px;left:100px;;">Remove from Basket</button>
+                       </div>
+
+                    </div>
+
+
+<!--end main products section-->
+
+
+
+        </div><!-- end text -->
+
+        </div><!-- end primary -->
+
+    </div><!-- end CENTER-WHITE -->
+
+    <div id="LEFT_BOTTOM_PANEL"></div><!-- end LEFT_BOTTOM_PANEL -->
+
+
+    <!--Begin Basket-->
+
+    <div id="RIGHT_BOTTOM_GRAY_PANEL2">
+
+        <div class="basketHeader">
+        <div class="basketFixed">
+
+        <button class="btn btn-sm btn-primary"  style="position:relative;top:10px;left:120px;" type="button" onclick="location.href='checkout.html'" >Review Order</button>
+        <h3>Basket ({{productCtrl.basket.length}})</h3>
+
+        </div>
+        </div>
+
+        <div class="basketShell">
+        <table class="table table-hover" ng-init="productCtrl.initBasketQuantity()">
+
+
+            <tbody>
+
+            <tr class="repeat-animation" ng-repeat="product in productCtrl.customer.product">
+
+                <td>{{product.id}}
+
+                    <div ng-click="productCtrl.removeProductCheckout(product.name)" class="removeItem">x</div>
+                    <input ng-change="productCtrl.setCookie()" class="basketQuantity" type="number" required
+
+                           min="1" id="product.name"
+                           ng-model="productCtrl.customer.quantities[productCtrl.basket.indexOf(product.name)]">
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+        </div>
+
+    </div><!--Emd Basket--> <!-- end RIGHT_BOTTOM_GRAY_PANEL -->
+
+</div><!-- end RIGHT-GRAY-PANEL -->
+
+
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<div style="position:relative;" ng-show="add">
+    <h3>Add a Product</h3>
+    <form name="productAdd" ng-submit="productAdd.$valid && formSubmit()" novalidate>
+        <table class="table table-hover">
+            <tbody>
+            <tr><td>ID:</td> <td>{{named(lengthOfProducts)}}</td></tr>
+            <tr><td>Vendor:</td> <td><input type="text" ng-model="Vendor" class="inputs"></td></tr>
+            <tr><td>Group:</td> <td><select ng-model="Group" ng-options="o as o for o in groups" class="inputs"></select></td></tr>
+            <tr><td>Sub Group:</td> <td><input type="text" ng-model="SubGroup" class="inputs"></td></tr>
+            <tr><td>Part Number:</td> <td><input type="text" ng-model="PartNumber" class="inputs"></td></tr>
+            <tr><td>MfgPN:</td> <td><input type="text" ng-model="MfgPN" class="inputs"></td></tr>
+            <tr><td>U/M:</td> <td><input type="text" ng-model="UM" class="inputs"></td></tr>
+            <tr><td>Name:</td> <td><input type="text" ng-model="id" class="inputs"></td></tr>
+            </tbody>
+        </table>
+    </form>
+
+    <password-auth></password-auth>
+
+
+</div>

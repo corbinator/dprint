@@ -1,0 +1,38 @@
+<html>
+<head>
+    <link rel="stylesheet" href="css/productChangeStyle.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/angular.min.js"></script>
+    <script src="js/array.json"></script>
+    <script src="js/groups.json"></script>
+    <script src="js/authentication.js"></script>
+
+</head>
+<body ng-app="authenticate" ng-controller="AuthenticationController" ng-init="productsLength()">
+
+<div style="position:absolute; top:50%; left:45%" ng-hide="selectionChosen">
+    <h4>Select an Option</h4> <br>
+    <input type="button" ng-click="add=true;selectionChosen=true" value="Add a Product">
+    <input type="button" ng-click="remove=true;selectionChosen=true" value="Remove a Product">
+</div>
+
+<add-product-table></add-product-table>
+
+<div style="position:relative;" ng-show="remove">Remove a Product
+
+
+    <password-auth></password-auth>
+</div>
+
+
+
+
+
+
+
+</body>
+
+
+
+
+</html>
