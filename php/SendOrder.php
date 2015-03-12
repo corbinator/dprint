@@ -105,7 +105,7 @@ $customerFinal .= $final;
 
 
 
-$mailTo = "cameron64@ymail.com";
+$mailTo = "corbin.hadley@gmail.com";
 $mailSubject = "New Order";
 $customerSubject = "Thank You";
 
